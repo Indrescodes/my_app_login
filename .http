@@ -1,0 +1,27 @@
+GET http://localhost:5001/clients
+###
+
+POST http://localhost:5001/submit
+Content-Type: application/json
+
+{
+  "name": "John",
+  "surname": "Doe",
+  "age": 25,
+  "email": "johndoe@example.com"
+}
+
+### 
+PUT http://localhost:5001/clients/64ac5d33deba2ceee298c1c9
+Content-Type: application/json
+
+{
+  "name": "kaka",
+  "surname": "kakutis",
+  "age": 10,
+  "email": "updatedemail@example.com"
+}
+
+###
+
+DELETE http://localhost:5001/clients/64ac5bc3deba2ceee298c1c5
