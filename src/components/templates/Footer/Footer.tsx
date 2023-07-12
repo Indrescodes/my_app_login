@@ -1,16 +1,16 @@
-import { StyledContent, StyledFooter, StyledFooterContent } from './styles';
+import { StyledContent, StyledFooterContainer, StyledFooterContent } from './styles';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <StyledFooter>
+    <StyledFooterContainer>
       <StyledFooterContent>
         <StyledContent>
           &copy; {currentYear} Visos teisės saugomos
         </StyledContent>
       </StyledFooterContent>
-    </StyledFooter>
+    </StyledFooterContainer>
   );
 };
 

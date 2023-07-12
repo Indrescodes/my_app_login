@@ -1,13 +1,15 @@
 import { styled } from 'styled-components';
 
-export const StyledFooter = styled.footer`
-  position: fixed;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+
+export const StyledFooterContainer = styled.div`
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
+
 export const StyledContent = styled.p`
-  font-size: 12px;
+  font-size: 14px;
 
   @media screen and (min-width: 765px) {
     font-size: 17px;

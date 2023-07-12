@@ -1,5 +1,4 @@
 import Display from '../../components/molecules/Display/Display';
-import { StyledClients, StyledTitle, StyledWrapper } from './styles';
 
 interface ClientInfo {
   name: string;
@@ -21,14 +20,8 @@ function Pagrindinis({
 }: IPagrindinisProps): JSX.Element {
   return (
     <>
-      <StyledWrapper>
-        <StyledTitle>
-          <p>Vardas</p>
-          <p>Pavardė</p>
-          <p>El. paštas</p>
-          <p>Amžius</p>
-        </StyledTitle>
-        <StyledClients>
+      <div>
+        <div>
           <Display
             clientInfo={
               clientInfo || { name: '', surname: '', age: '', email: '' }
@@ -36,8 +29,8 @@ function Pagrindinis({
             onUpdate={handleUpdate}
             onDelete={handleDelete}
           />
-        </StyledClients>
-      </StyledWrapper>
+        </div>
+      </div>
     </>
   );
 }

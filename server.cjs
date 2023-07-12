@@ -1,6 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const { queryHandler } = require('./server_side/middlewares/query.cjs');
+const {
+  getAllClients,
+  addSingleClient,
+  deleteClient,
+  updateClient,
+  getSingleClient,
+} = require('./server_side/controllers/clients.controlles.cjs');
 require('dotenv').config();
 
 const app = express();
@@ -22,97 +30,16 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Define the schema for the client info
-const clientInfoSchema = new mongoose.Schema({
-  name: String,
-  surname: String,
-  age: String,
-  email: String,
-});
+// Route handler for getting all clients
+app.get('/clients', queryHandler, getAllClients);
 
-const ClientInfo = mongoose.model('ClientInfo', clientInfoSchema);
+app.post('/submit', addSingleClient);
 
-app.get('/clients', async (req, res) => {
-  try {
-    const clients = await ClientInfo.find();
+app.delete('/clients/:id', deleteClient);
 
-    res.status(200).json(clients);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'An error occurred while retrieving the clients' });
-  }
-});
+app.put('/clients/:id', updateClient);
 
-app.post('/submit', async (req, res) => {
-  try {
-    const { name, surname, age, email } = req.body;
-    console.log('Received request body:', req.body);
-
-    const clientInfo = new ClientInfo({
-      name,
-      surname,
-      age,
-      email,
-    });
-
-    await clientInfo.save();
-
-    res.status(200).json({ message: 'Form submitted successfully' });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'An error occurred while submitting the form' });
-  }
-});
-
-app.delete('/clients/:id', async (req, res) => {
-  try {
-    const clientId = req.params.id;
-
-    await ClientInfo.findByIdAndDelete(clientId);
-
-    res.status(200).json({ message: 'Client deleted successfully' });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'An error occurred while deleting the client' });
-  }
-});
-
-app.put('/clients/:id', async (req, res) => {
-  try {
-    const clientId = req.params.id;
-
-    const { name, surname, age, email } = req.body;
-
-    await ClientInfo.findByIdAndUpdate(clientId, { name, surname, age, email });
-
-    res.status(200).json({ message: 'Client updated successfully' });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'An error occurred while updating the client' });
-  }
-});
-
-app.get('/clients/:id', async (req, res) => {
-  try {
-    const clientId = req.params.id;
-
-    const client = await ClientInfo.findById(clientId);
-
-    if (!client) {
-      return res.status(404).json({ error: 'Client not found' });
-    }
-
-    res.status(200).json(client);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'An error occurred while fetching the client' });
-  }
-});
+app.get('/clients/:id', getSingleClient);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

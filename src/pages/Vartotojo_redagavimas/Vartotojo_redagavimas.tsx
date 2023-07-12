@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { StyledButton } from '../../components/atoms/Button/styles';
-import { StyledTitle } from '../Pagrindinis/styles';
+import { StyledInput } from '../../components/atoms/Input/styles';
 
 interface Client {
   name: string;
@@ -71,32 +71,32 @@ const ClientUpdatePage = () => {
 
   return (
     <div>
-      <StyledTitle>
+      <div>
         <p>Name </p>
         <p>Surname</p>
         <p>Email</p>
         <p>Age</p>
-      </StyledTitle>
+      </div>
       <div>
-        <input
+        <StyledInput
           type='text'
           name='name'
           value={editedClient!.name}
           onChange={handleInputChange}
         />
-        <input
+        <StyledInput
           type='text'
           name='surname'
           value={editedClient!.surname}
           onChange={handleInputChange}
         />
-        <input
+        <StyledInput
           type='email'
           name='email'
           value={editedClient!.email}
           onChange={handleInputChange}
         />
-        <input
+        <StyledInput
           type='number'
           name='age'
           value={editedClient!.age}

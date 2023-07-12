@@ -9,7 +9,8 @@ export const StyledButton = styled.button`
   justify-content: center;
   margin: 0.25em;
   font-family: 'Mulish', sans-serif;
-  
+  cursor: pointer;
+
   &:hover {
     border: 1px solid rgba(0, 0, 0, 0.16) 0px 3px 6px;
     box-shadow: rgba(0, 0, 0, 0.23) 0px 3px 6px;
