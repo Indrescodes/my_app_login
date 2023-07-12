@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { StyledButton } from '../../components/atoms/Button/styles';
-import { StyledClients, StyledTitle } from '../Pagrindinis/styles';
+
 
 interface Client {
   name: string;
@@ -58,18 +58,18 @@ const ClientPageDelete = () => {
 
   return (
     <div>
-      <StyledTitle>
+      <div>
         <p>Vardas</p>
         <p>Pavardė</p>
         <p>El. paštas</p>
         <p>Amžius</p>
-      </StyledTitle>
-      <StyledClients>
+      </div>
+      <div>
         <p>{client.name}</p>
         <p>{client.surname}</p>
         <p>{client.email}</p>
         <p>{client.age}</p>{' '}
-      </StyledClients>
+      </div>
 
       <p>Ar tikrai norite ištrinti?</p>
       <StyledButton onClick={handleDelete}>Taip</StyledButton>

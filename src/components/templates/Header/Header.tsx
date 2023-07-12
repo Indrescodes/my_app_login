@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Button from '../../atoms/Button';
-import Form, {ClientInfo} from "../../molecules/Form/Form";
+import Form, { ClientInfo } from '../../molecules/Form/Form';
+import { StyledHeaderWrapper } from './styles';
+
 
 interface IHeaderProps {
   onButtonClick: () => void;
@@ -19,12 +21,13 @@ const Header: React.FC<IHeaderProps> = () => {
     setShowForm(true);
   };
 
-
   return (
-    <div>
-      <Button onClick={handleButtonClick}>Pridėti naują</Button>
+    <StyledHeaderWrapper>
+      <Button className='headers__button' onClick={handleButtonClick}>
+        Pridėti naują
+      </Button>
       {showForm && <Form onSubmit={handleFormSubmit} />}
-    </div>
+    </StyledHeaderWrapper>
   );
 };
 

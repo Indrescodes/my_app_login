@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ClientInfo } from '../Form/Form';
 import { Link } from 'react-router-dom';
-import { StyledButton } from '../../atoms/Button/styles';
-import { StyledClients } from '../../../pages/Pagrindinis/styles';
+import { StyledButton } from '../../atoms/Button/styles'
+import { StyledButtonWrapper, StyledDisplayWrapper, StyledPaginationWrapper, StyledTableCell, StyledTableHeader, StyledTableRow, StyledTableWrapper } from './styles';
+
+
 
 export interface IDisplayProps {
   clientInfo: ClientInfo;
@@ -29,38 +31,46 @@ const Display: React.FC<IDisplayProps> = ({ clientInfo }) => {
     }
   };
 
-  // Get the current records to display based on the current page and records per page
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = clients.slice(indexOfFirstRecord, indexOfLastRecord);
 
-  // Change the page
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   return (
-    <div>
-      {currentRecords.map((client) => (
-        <div key={client._id}>
-          <StyledClients>
-            <p>{client.name}</p>
-            <p>{client.surname}</p>
-            <p>{client.email}</p>
-            <p>{client.age}</p>
-            <Link to={`/user-edit/${client._id}`}>
-              <StyledButton>Redaguoti</StyledButton>
-            </Link>
-            <Link to={`/user-delete/${client._id}`}>
-              <StyledButton>Ištrinti</StyledButton>
-            </Link>
-          </StyledClients>
-        </div>
-      ))}
+    <StyledDisplayWrapper>
+      <StyledTableWrapper>
+        <StyledTableHeader>
+          <StyledTableCell>Vardas</StyledTableCell>
+          <StyledTableCell>Pavardė</StyledTableCell>
+          <StyledTableCell>El. paštas</StyledTableCell>
+          <StyledTableCell>Amžius</StyledTableCell>
+          <StyledTableCell>Veiksmai</StyledTableCell>
+        </StyledTableHeader>
+        {currentRecords.map((client) => (
+          <StyledTableRow key={client._id}>
+            <StyledTableCell>{client.name}</StyledTableCell>
+            <StyledTableCell>{client.surname}</StyledTableCell>
+            <StyledTableCell>{client.email}</StyledTableCell>
+            <StyledTableCell>{client.age}</StyledTableCell>
+            <StyledTableCell>
+              <StyledButtonWrapper>
+                <Link to={`/user-edit/${client._id}`}>
+                  <StyledButton className='update__button'>Redaguoti</StyledButton>
+                </Link>
+                <Link to={`/user-delete/${client._id}`}>
+                  <StyledButton className='delete__button'>Ištrinti</StyledButton>
+                </Link>
+              </StyledButtonWrapper>
+            </StyledTableCell>
+          </StyledTableRow>
+        ))}
+      </StyledTableWrapper>
 
-      {/* Pagination */}
       {clients.length > recordsPerPage && (
-        <div>
+        <StyledPaginationWrapper>
           {Array(Math.ceil(clients.length / recordsPerPage))
             .fill(null)
             .map((_, index) => (
@@ -68,9 +78,9 @@ const Display: React.FC<IDisplayProps> = ({ clientInfo }) => {
                 {index + 1}
               </StyledButton>
             ))}
-        </div>
+        </StyledPaginationWrapper>
       )}
-    </div>
+    </StyledDisplayWrapper>
   );
 };
 

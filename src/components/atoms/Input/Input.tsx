@@ -1,7 +1,8 @@
 import { useRef, useEffect, ChangeEvent } from 'react';
+import { StyledInput } from './styles';
 
 interface IInputProps {
-  type: 'text' | 'number';
+  type: 'text' | 'number' | 'email';
   value: string | number;
   name: string;
   setValue?: (value: string | number) => void;
@@ -9,20 +10,27 @@ interface IInputProps {
   placeholder?: string;
 }
 
-const Input = ({ type, value, name, setValue, onChange, placeholder }: IInputProps) => {
+const Input = ({
+  type,
+  value,
+  name,
+  setValue,
+  onChange,
+  placeholder,
+}: IInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleOutsideInputClick = (e: MouseEvent) => {
       if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
-        // Handle outside click
+        // Handle outside click, if needed
       }
     };
 
-    document.addEventListener('click', handleOutsideInputClick);
+    document.addEventListener('mousedown', handleOutsideInputClick);
 
     return () => {
-      document.removeEventListener('click', handleOutsideInputClick);
+      document.removeEventListener('mousedown', handleOutsideInputClick);
     };
   }, []);
 
@@ -35,16 +43,16 @@ const Input = ({ type, value, name, setValue, onChange, placeholder }: IInputPro
   };
 
   return (
-      <div>
-        <input
-            ref={inputRef}
-            type={type}
-            value={value}
-            name={name}
-            onChange={handleChange}
-            placeholder={placeholder}
-        />
-      </div>
+    <div>
+      <StyledInput
+        ref={inputRef}
+        type={type}
+        value={value}
+        name={name}
+        onChange={handleChange}
+        placeholder={placeholder}
+      />
+    </div>
   );
 };
 
