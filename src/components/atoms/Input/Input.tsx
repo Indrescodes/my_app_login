@@ -8,6 +8,7 @@ interface IInputProps {
   setValue?: (value: string | number) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  onSearch?: () => void;
 }
 
 const Input = ({
@@ -17,13 +18,13 @@ const Input = ({
   setValue,
   onChange,
   placeholder,
+  onSearch,
 }: IInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleOutsideInputClick = (e: MouseEvent) => {
       if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
-        // Handle outside click, if needed
       }
     };
 
@@ -40,6 +41,12 @@ const Input = ({
       setValue(inputValue);
     }
     onChange(e);
+  };
+
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch();
+    }
   };
 
   return (

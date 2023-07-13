@@ -26,3 +26,20 @@ export const StyledForm = styled.form`
     font-size: 1em;
   }
 `;
+
+export const StyledSuccessMessage = styled.p`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f5f5f5;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: black;
+  padding: 10px;
+  width: 50%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+`;

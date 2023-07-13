@@ -16,4 +16,6 @@ export const StyledButton = styled.button`
     box-shadow: rgba(0, 0, 0, 0.23) 0px 3px 6px;
     transform: translateY(-0.25em);
   }
+
+  
 `;
