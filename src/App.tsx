@@ -9,19 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route
-            path='/'
-            element={
-              <Pagrindinis
-                handleUpdate={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
-                handleDelete={function (): void {
-                  throw new Error('Function not implemented.');
-                }}
-              />
-            }
-          />
+          <Route path='/' element={<Pagrindinis />} />
           <Route path='/user-edit/:id' element={<ClientUpdatePage />} />
           <Route path='/user-delete/:id' element={<ClientPageDelete />} />
         </Route>

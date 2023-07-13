@@ -16,8 +16,8 @@ PUT http://localhost:5001/clients/64ac5d33deba2ceee298c1c9
 Content-Type: application/json
 
 {
-  "name": "kaka",
-  "surname": "kakutis",
+  "name": "Test",
+  "surname": "Test",
   "age": 10,
   "email": "updatedemail@example.com"
 }

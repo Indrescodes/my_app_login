@@ -2,6 +2,15 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { StyledButton } from '../../components/atoms/Button/styles';
 import { StyledInput } from '../../components/atoms/Input/styles';
+import {
+  StyledButtonWrapper,
+  StyledDisplayWrapper,
+  StyledSpan,
+  StyledTableCell,
+  StyledTableHeader,
+  StyledTableRow,
+  StyledTableWrapper,
+} from '../../components/molecules/Display/styles';
 
 interface Client {
   name: string;
@@ -10,7 +19,7 @@ interface Client {
   age: number;
 }
 
-const ClientUpdatePage = () => {
+const VartotojoRedagavimas = () => {
   const { id } = useParams();
   const [client, setClient] = useState<Client | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,45 +79,63 @@ const ClientUpdatePage = () => {
   }
 
   return (
-    <div>
-      <div>
-        <p>Name </p>
-        <p>Surname</p>
-        <p>Email</p>
-        <p>Age</p>
-      </div>
-      <div>
-        <StyledInput
-          type='text'
-          name='name'
-          value={editedClient!.name}
-          onChange={handleInputChange}
-        />
-        <StyledInput
-          type='text'
-          name='surname'
-          value={editedClient!.surname}
-          onChange={handleInputChange}
-        />
-        <StyledInput
-          type='email'
-          name='email'
-          value={editedClient!.email}
-          onChange={handleInputChange}
-        />
-        <StyledInput
-          type='number'
-          name='age'
-          value={editedClient!.age}
-          onChange={handleInputChange}
-        />
-        <StyledButton onClick={handleUpdate}>Išsaugoti</StyledButton>
-        <Link to='/'>
-          <StyledButton>Atšaukti</StyledButton>
-        </Link>
-      </div>
-    </div>
+    <StyledDisplayWrapper>
+      <StyledTableWrapper>
+        <StyledTableHeader>
+          <StyledTableCell>Vardas </StyledTableCell>
+          <StyledTableCell>Pavardė</StyledTableCell>
+          <StyledTableCell>El. paštas</StyledTableCell>
+          <StyledTableCell>Amžius</StyledTableCell>
+        </StyledTableHeader>
+        <StyledTableRow>
+          <StyledSpan>Vardas:</StyledSpan>
+          <StyledInput
+            className='input'
+            type='text'
+            name='name'
+            value={editedClient!.name}
+            onChange={handleInputChange}
+          />
+          <StyledSpan>Pavardė:</StyledSpan>
+          {''}
+          <StyledInput
+            className='input'
+            type='text'
+            name='surname'
+            value={editedClient!.surname}
+            onChange={handleInputChange}
+          />
+          <StyledSpan>El. paštas:</StyledSpan>
+          <StyledInput
+            className='input'
+            type='email'
+            name='email'
+            value={editedClient!.email}
+            onChange={handleInputChange}
+          />
+          <StyledSpan>Amžius:</StyledSpan>
+          <StyledInput
+            className='input'
+            type='number'
+            name='age'
+            value={editedClient!.age}
+            onChange={handleInputChange}
+          />
+          <StyledButtonWrapper>
+            <StyledButton
+              style={{ background: 'rgb(230,247,239)', color:'rgb(59, 92, 77)' }}
+              onClick={handleUpdate}
+            >
+              Išsaugoti
+            </StyledButton>
+            <Link to='/'>
+              <StyledButton className='delete__button'>Atšaukti</StyledButton>
+            </Link>
+          </StyledButtonWrapper>
+        </StyledTableRow>
+      </StyledTableWrapper>
+    </StyledDisplayWrapper>
   );
 };
 
-export default ClientUpdatePage;
+export default VartotojoRedagavimas;

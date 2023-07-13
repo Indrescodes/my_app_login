@@ -3,7 +3,6 @@ import Button from '../../atoms/Button';
 import Form, { ClientInfo } from '../../molecules/Form/Form';
 import { StyledHeaderWrapper } from './styles';
 
-
 interface IHeaderProps {
   onButtonClick: () => void;
 }

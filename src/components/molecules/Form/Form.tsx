@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
-import { StyledForm, StyledFormContainer } from './styles';
+import {
+  StyledForm,
+  StyledFormContainer,
+  StyledSuccessMessage,
+} from './styles';
 
 interface IFormProps {
   onSubmit: (clientInfo: ClientInfo) => void;
@@ -22,6 +26,8 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
     email: '',
     age: '',
   });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [formError, setFormError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,6 +36,16 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (
+      clientInfo.name.trim() === '' ||
+      clientInfo.surname.trim() === '' ||
+      clientInfo.email.trim() === '' ||
+      clientInfo.age.toString().trim() === ''
+    ) {
+      setFormError(true);
+      return;
+    }
 
     const updatedClientInfo = {
       name: clientInfo.name,
@@ -48,7 +64,6 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
       });
 
       if (response.ok) {
-        // Form submitted successfully
         onSubmit(updatedClientInfo);
         setClientInfo({
           name: '',
@@ -56,26 +71,48 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
           age: '',
           email: '',
         });
+
+        setShowSuccessMessage(true);
+        setFormError(false);
+
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+          window.location.href = '/';
+        }, 2000);
       } else {
-        // Handle error case
         console.error('Form submission failed');
       }
     } catch (error) {
       console.error('An error occurred during form submission:', error);
     }
-    window.location.reload();
   };
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (formError) {
+      timeout = setTimeout(() => {
+        setFormError(false);
+      }, 2000);
+    }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [formError]);
 
   const handleCloseForm = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      // Click occurred on the StyledFormContainer itself, not its children
-      // Close the form here
       setClientInfo({
         name: '',
         surname: '',
         age: '',
         email: '',
       });
+      setShowSuccessMessage(false);
+      setFormError(false);
     }
   };
 
@@ -83,6 +120,18 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
     <>
       <div>
         <StyledFormContainer onClick={handleCloseForm}>
+          {showSuccessMessage && (
+            <StyledSuccessMessage>
+              Vartotojas pridėtas sėkmingai.
+            </StyledSuccessMessage>
+          )}
+
+          {formError && (
+            <StyledSuccessMessage>
+              Visi laukai turi būti užpildyti.
+            </StyledSuccessMessage>
+          )}
+
           <StyledForm onSubmit={handleSubmit}>
             <label htmlFor='name'>Vardas:</label>
             <Input
@@ -116,7 +165,11 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
               onChange={handleChange}
             />
 
-            <Button type='submit' onClick={() => {}}>
+            <Button
+              className='headers__button'
+              type='submit'
+              onClick={() => {}}
+            >
               Pridėti naują
             </Button>
           </StyledForm>

@@ -33,7 +33,6 @@ const getSingleClient = async (req, res) => {
 const addSingleClient = async (req, res) => {
   try {
     const { name, surname, age, email } = req.body;
-    console.log('Received request body:', req.body);
 
     const clientInfo = new ClientInfo({
       name,
@@ -69,23 +68,23 @@ const updateClient = async (req, res) => {
 };
 
 const deleteClient = async (req, res) => {
-    try {
-      const clientId = req.params.id;
-  
-      await ClientInfo.findByIdAndDelete(clientId);
-  
-      res.status(200).json({ message: 'Client deleted successfully' });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ error: 'An error occurred while deleting the client' });
-    }
+  try {
+    const clientId = req.params.id;
+
+    await ClientInfo.findByIdAndDelete(clientId);
+
+    res.status(200).json({ message: 'Client deleted successfully' });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: 'An error occurred while deleting the client' });
   }
+};
 
 module.exports = {
   getAllClients,
   getSingleClient,
   addSingleClient,
   updateClient,
-  deleteClient
+  deleteClient,
 };

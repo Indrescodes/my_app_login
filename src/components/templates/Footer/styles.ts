@@ -1,13 +1,12 @@
 import { styled } from 'styled-components';
 
-
 export const StyledFooterContainer = styled.div`
-  position: sticky;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  margin-top: 50px;
+  bottom: 0;
 `;
-
 export const StyledContent = styled.p`
   font-size: 14px;
 
@@ -16,6 +15,5 @@ export const StyledContent = styled.p`
   }
 `;
 export const StyledFooterContent = styled.div`
-  text-align: center;
   margin: 0 10px;
 `;

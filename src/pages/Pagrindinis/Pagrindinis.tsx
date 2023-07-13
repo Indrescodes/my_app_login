@@ -9,8 +9,8 @@ interface ClientInfo {
 
 interface IPagrindinisProps {
   clientInfo?: ClientInfo;
-  handleUpdate: () => void;
-  handleDelete: () => void;
+  handleUpdate?: () => void;
+  handleDelete?: () => void;
 }
 
 function Pagrindinis({
