@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { StyledButton } from '../../components/atoms/Button/styles';
-import { StyledInput } from '../../components/atoms/Input/styles';
 import {
   StyledButtonWrapper,
   StyledDisplayWrapper,
@@ -11,6 +10,7 @@ import {
   StyledTableRow,
   StyledTableWrapper,
 } from '../../components/molecules/Display/styles';
+import { StyledEditableDiv } from './styles';
 
 interface Client {
   name: string;
@@ -42,10 +42,12 @@ const VartotojoRedagavimas = () => {
     fetchClient();
   }, [id]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLDivElement>) => {
+    const { dataset, textContent } = e.currentTarget;
+    const fieldName = dataset.name || ''; // Provide a default value in case dataset.name is undefined
     setEditedClient({
       ...editedClient!,
-      [e.target.name]: e.target.value,
+      [fieldName]: textContent,
     });
   };
 
@@ -89,41 +91,51 @@ const VartotojoRedagavimas = () => {
         </StyledTableHeader>
         <StyledTableRow>
           <StyledSpan>Vardas:</StyledSpan>
-          <StyledInput
+          <StyledEditableDiv
             className='input'
-            type='text'
-            name='name'
-            value={editedClient!.name}
-            onChange={handleInputChange}
-          />
+            contentEditable
+            onBlur={handleInputChange}
+            data-name='name'
+            suppressContentEditableWarning={true}
+          >
+            {editedClient!.name}
+          </StyledEditableDiv>
           <StyledSpan>Pavardė:</StyledSpan>
-          {''}
-          <StyledInput
+          <StyledEditableDiv
             className='input'
-            type='text'
-            name='surname'
-            value={editedClient!.surname}
-            onChange={handleInputChange}
-          />
+            contentEditable
+            onBlur={handleInputChange}
+            data-name='surname'
+            suppressContentEditableWarning={true}
+          >
+            {editedClient!.surname}
+          </StyledEditableDiv>
           <StyledSpan>El. paštas:</StyledSpan>
-          <StyledInput
+          <StyledEditableDiv
             className='input'
-            type='email'
-            name='email'
-            value={editedClient!.email}
-            onChange={handleInputChange}
-          />
+            contentEditable
+            onBlur={handleInputChange}
+            data-name='email'
+            suppressContentEditableWarning={true}
+          >
+            {editedClient!.email}
+          </StyledEditableDiv>
           <StyledSpan>Amžius:</StyledSpan>
-          <StyledInput
+          <StyledEditableDiv
             className='input'
-            type='number'
-            name='age'
-            value={editedClient!.age}
-            onChange={handleInputChange}
-          />
+            contentEditable
+            onBlur={handleInputChange}
+            data-name='age'
+            suppressContentEditableWarning={true}
+          >
+            {editedClient!.age}
+          </StyledEditableDiv>
           <StyledButtonWrapper>
             <StyledButton
-              style={{ background: 'rgb(230,247,239)', color:'rgb(59, 92, 77)' }}
+              style={{
+                background: 'rgb(230,247,239)',
+                color: 'rgb(59, 92, 77)',
+              }}
               onClick={handleUpdate}
             >
               Išsaugoti
