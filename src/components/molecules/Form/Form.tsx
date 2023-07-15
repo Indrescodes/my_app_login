@@ -28,6 +28,7 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [formError, setFormError] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(true); // New state variable
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -126,7 +127,7 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
             </StyledSuccessMessage>
           )}
 
-          {formError && (
+          {formError && showErrorMessage && ( // Show the error message only if showErrorMessage is true
             <StyledSuccessMessage>
               Visi laukai turi būti užpildyti.
             </StyledSuccessMessage>
@@ -171,6 +172,17 @@ const Form: React.FC<IFormProps> = ({ onSubmit }) => {
               onClick={() => {}}
             >
               Pridėti naują
+            </Button>
+            <Button
+              className='headers__cancel'
+              onClick={() => {
+                setShowSuccessMessage(false);
+                setFormError(false);
+                setShowErrorMessage(false); 
+                window.location.href = '/';
+              }}
+            >
+              Atšaukti
             </Button>
           </StyledForm>
         </StyledFormContainer>

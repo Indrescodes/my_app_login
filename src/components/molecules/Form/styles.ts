@@ -11,6 +11,20 @@ export const StyledFormContainer = styled.div`
   align-items: center;
   z-index: 9999;
   background-color: rgba(210, 210, 210, 0.5);
+
+  .headers__cancel {
+    font-size: 1em;
+    padding: 10px 25px;
+    background-color: rgb(240, 58, 95);
+    color: white;
+    font-weight: 700;
+    margin-top: 5px;
+    &:hover {
+      color: black;
+      box-shadow: rgba(255, 0, 0, 0.5) 0px 3px 6px;
+      border: none;
+    }
+  }
 `;
 
 export const StyledForm = styled.form`
